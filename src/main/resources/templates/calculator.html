@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anant Vestralok Calculator</title>
+    <style>
+        :root {
+            --primary: #3a7bd5;
+            --primary-dark: #00d2ff;
+            --secondary: #f5f7fa;
+            --accent: #ff7e5f;
+            --text: #333333;
+            --light-text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light-text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .calculator {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-number {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text);
+        }
+
+        .btn-calculate {
+            background-color: var(--accent);
+            color: white;
+            grid-column: span 3;
+        }
+
+        .btn-clear {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        .result {
+            font-size: 22px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            min-height: 30px;
+            word-wrap: break-word;
+        }
+
+        @media (min-width: 400px) {
+            .calculator {
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h1>Anant Vestralok Calculator</h1>
+
+    <form th:action="@{/calculate}" method="post">
+        <input type="number" name="number" placeholder="Enter number" required>
+
+        <div class="buttons">
+            <button type="button" class="btn-number" onclick="appendNumber('7')">7</button>
+            <button type="button" class="btn-number" onclick="appendNumber('8')">8</button>
+            <button type="button" class="btn-number" onclick="appendNumber('9')">9</button>
+
+            <button type="button" class="btn-number" onclick="appendNumber('4')">4</button>
+            <button type="button" class="btn-number" onclick="appendNumber('5')">5</button>
+            <button type="button" class="btn-number" onclick="appendNumber('6')">6</button>
+
+            <button type="button" class="btn-number" onclick="appendNumber('1')">1</button>
+            <button type="button" class="btn-number" onclick="appendNumber('2')">2</button>
+            <button type="button" class="btn-number" onclick="appendNumber('3')">3</button>
+
+            <button type="button" class="btn-number" onclick="appendNumber('0')">0</button>
+            <button type="button" class="btn-clear" onclick="clearInput()">C</button>
+            <button type="submit" class="btn-calculate">Calculate </button>
+        </div>
+    </form>
+
+    <div class="result" th:text="${result}"></div>
+</div>
+
+<script>
+    function appendNumber(num) {
+        const input = document.getElementsByName("number")[0];
+        input.value += num;
+    }
+
+    function clearInput() {
+        document.getElementsByName("number")[0].value = "";
+    }
+</script>
+</body>
+</html>
