@@ -9,5 +9,4 @@ public class VestralokApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VestralokApplication.class, args);
 	}
-
 }

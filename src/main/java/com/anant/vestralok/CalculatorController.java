@@ -6,20 +6,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 @Controller
 public class CalculatorController {
+
     @GetMapping("/")
     public String calculatorForm(Model model) {
         model.addAttribute("result", "");
-        return "calculator";
+        model.addAttribute("operations", new String[]{"halfMinus10Percent", "square", "double"});
+        return "index";
     }
 
     @PostMapping("/calculate")
-    public String calculate(@RequestParam("number") double number, Model model) {
-        double result = (number / 2) * 0.9; // (number/2 - 10%)
-        model.addAttribute("result", "Result: " + result);
-        return "calculator";
+    public String calculate(
+            @RequestParam("number") @Valid @NotNull @Min(0) Double number,
+            @RequestParam(value = "operation", defaultValue = "halfMinus10Percent") String operation,
+            Model model) {
+
+        try {
+            double result = performCalculation(number, operation);
+            model.addAttribute("result", String.format("Result: %.2f", result));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+
+        model.addAttribute("operations", new String[]{"halfMinus10Percent", "square", "double"});
+        return "index";
+    }
+
+    private double performCalculation(double number, String operation) {
+        switch(operation) {
+            case "halfMinus10Percent":
+                return (number / 2) * 0.9;
+            case "square":
+                return number * number;
+            case "double":
+                return number * 2;
+            default:
+                throw new IllegalArgumentException("Invalid operation selected");
+        }
     }
 }
-
-
