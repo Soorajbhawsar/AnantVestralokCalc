@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: vestralok
+    runtime: docker
+    buildCommand: ./mvnw clean package
+    startCommand: java -jar target/vestralok-0.0.1-SNAPSHOT.jar
+    env: java
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
