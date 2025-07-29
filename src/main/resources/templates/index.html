@@ -17,7 +17,7 @@
 
     <form th:action="@{/calculate}" method="post">
         <input type="number" name="number" placeholder="Enter number" required>
-
+        <div class="result" th:text="${result}"></div>
         <div class="buttons">
             <button type="button" class="btn-number" onclick="appendNumber('7')">7</button>
             <button type="button" class="btn-number" onclick="appendNumber('8')">8</button>
@@ -37,7 +37,7 @@
         </div>
     </form>
 
-    <div class="result" th:text="${result}"></div>
+    
 </div>
 
 <script>
