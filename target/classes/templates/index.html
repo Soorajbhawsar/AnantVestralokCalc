@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +9,15 @@
 
 </head>
 
-    <link rel="stylesheet" href="style.css">
-   </head>
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
 <div class="calculator">
     <h1>Anant Vestralok Calculator</h1>
 
     <form th:action="@{/calculate}" method="post">
         <input type="number" name="number" placeholder="Enter number" required>
-
+        <div class="result" th:text="${result}"></div>
         <div class="buttons">
             <button type="button" class="btn-number" onclick="appendNumber('7')">7</button>
             <button type="button" class="btn-number" onclick="appendNumber('8')">8</button>
@@ -35,9 +35,9 @@
             <button type="button" class="btn-clear" onclick="clearInput()">C</button>
             <button type="submit" class="btn-calculate">Calculate </button>
         </div>
-    </form>
 
-    <div class="result" th:text="${result}"></div>
+    </form>
+    <a th:if="${showBillLink}" th:href="@{/bill}">Generate Bill</a>
 </div>
 
 <script>

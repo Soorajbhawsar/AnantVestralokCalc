@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+
 @Controller
 public class CalculatorController {
 
     @GetMapping("/")
     public String calculatorForm(Model model) {
+        model.addAttribute("showBillLink", true); // Initially false
         model.addAttribute("result", "");
         model.addAttribute("operations", new String[]{"halfMinus10Percent", "square", "double"});
         return "index";
@@ -28,8 +30,10 @@ public class CalculatorController {
         try {
             double result = performCalculation(number, operation);
             model.addAttribute("result", String.format("Result: %.2f", result));
+            model.addAttribute("showBillLink", true); // Set to true after successful calculation
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("showBillLink", false); // Keep false if error occurs
         }
 
         model.addAttribute("operations", new String[]{"halfMinus10Percent", "square", "double"});

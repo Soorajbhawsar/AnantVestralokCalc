@@ -1,0 +1,28 @@
+<!-- templates/bill.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Generation</title>
+  <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<div class="calculator">
+  <h1>Bill Generation</h1>
+
+  <form th:action="@{/generateBill}" method="post">
+    <input type="text" name="customerName" placeholder="Customer Name" required>
+    <input type="tel" name="phoneNumber" placeholder="Phone Number" required>
+    <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+
+    <div class="bill-details" th:text="${message}"></div>
+    <div class="bill-details" th:if="${billDetails}" th:text="${billDetails}"></div>
+
+    <button type="submit" class="btn-calculate">Generate & Send Bill</button>
+  </form>
+
+  <a th:href="@{/}">Back to Calculator</a>
+</div>
+</body>
+</html>
