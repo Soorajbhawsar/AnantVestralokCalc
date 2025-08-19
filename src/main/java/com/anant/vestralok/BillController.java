@@ -47,12 +47,12 @@ public class BillController {
         return "bill";
     }
 
-    private String generateBillDetails (String customerName, double amount) {
+   private String generateBillDetails(String customerName, double amount) {
         return "Bill for " + customerName +
-                "\n" + "Total Price : ₹" + String.format("%.2f", amount) +
-                "\n" + "Discount : ₹"+ String.format("%.2f",amount-(amount*0.90))+
-                "\n" + "Final Price : ₹" + String.format("%.2f", amount - (amount * 0.10)) +
-                "\n" + "Thank you for Visiting!" +  "\n" + "Anant Vestralok,Maksi";
+                "\nTotal Price: =₹ " + String.format("%.2f", amount + (amount * 0.10)) +
+                "\nDiscount:    =₹ " + String.format("%.2f", amount * 0.10) +
+                "\nFinal Price: =₹ " + String.format("%.2f", amount) +
+                "\n\nThank you for Visiting!\nAnant Vestralok, Maksi";
     }
 
     private boolean sendSMS(String phoneNumber, String message) {
